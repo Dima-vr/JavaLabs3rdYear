@@ -4,16 +4,13 @@ import org.example.lab0.Variant1;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.testng.Assert.assertEquals;
 
 
 public class Variant1Test {
     @Test(dataProvider = "meterData")
-    public void meterTest(int L, int expected) {
-        int actual = new Variant1().inMeter(L);
+    public void meterTest(int l, int expected) {
+        int actual = new Variant1().inMeter(l);
         assertEquals(actual, expected);
     }
 
@@ -78,30 +75,29 @@ public class Variant1Test {
     }
 
     @Test(dataProvider = "numberData")
-    public void testPrintNumberNTimes(int K, int N, String expectedOutput) {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+    public void testPrintNumberNTimes(int k, int n, int[] expectedOutput) {
+        int[] actualOutput = new Variant1().printNumberNTimes(k, n);
 
-        new Variant1().printNumberNTimes(K, N);
-
-        String actualOutput = outContent.toString().trim();
-
-        assert actualOutput.equals(expectedOutput) : "Output doesn't match expected result";
+        assertEquals(actualOutput, expectedOutput);
     }
 
     @DataProvider(name = "numberData")
     public Object[][] numberData() {
         return new Object[][]{
-                {1, 5, "11111"},
-                {2, 1, "2"},
-                {1, -1, "N must be greater than zero"}
+                {1, 5, new int[]{1, 1, 1, 1, 1}},
+                {2, 1, new int[]{2}}
         };
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void printNumberNTimesNegative() {
+        new Variant1().printNumberNTimes(1, -1);
     }
 
 
     @Test(dataProvider = "remainingLengthData")
-    public void testFindRemainingLength(int A, int B, int expected) {
-        int actual = new Variant1().findRemainingLength(A, B);
+    public void testFindRemainingLength(int a, int b, int expected) {
+        int actual = new Variant1().findRemainingLength(a, b);
         assertEquals(actual, expected);
     }
 
@@ -130,8 +126,8 @@ public class Variant1Test {
     }
 
     @Test(dataProvider = "oddNumbersData")
-    public void testGenerateOddNumbers(int N, int[] expected) {
-        int[] actual = new Variant1().generateOddNumbers(N);
+    public void testGenerateOddNumbers(int n, int[] expected) {
+        int[] actual = new Variant1().generateOddNumbers(n);
         assertEquals(actual, expected);
     }
 
@@ -145,8 +141,8 @@ public class Variant1Test {
     }
 
     @Test(dataProvider = "matrixData")
-    public void testCreateMatrix(int M, int N, int[][] expectedMatrix) {
-        int[][] actualMatrix = new Variant1().createMatrix(M, N);
+    public void testCreateMatrix(int m, int n, int[][] expectedMatrix) {
+        int[][] actualMatrix = new Variant1().createMatrix(m, n);
 
         assertEquals(actualMatrix.length, expectedMatrix.length);
         for (int i = 0; i < expectedMatrix.length; i++) {

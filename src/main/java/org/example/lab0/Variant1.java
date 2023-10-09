@@ -1,5 +1,6 @@
 package org.example.lab0;
 
+import java.util.Arrays;
 
 public class Variant1 {
     public int inMeter(int l) {
@@ -25,27 +26,26 @@ public class Variant1 {
     }
 
 
-    public void printNumberNTimes(int K, int N) {
-        if (N <= 0) {
-            System.out.println("N must be greater than zero");
-            return;
+    public int[] printNumberNTimes(int k, int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("N must be greater than zero");
         }
 
-        String repeatedNumber = String.valueOf(K).repeat(N);
-        System.out.print(repeatedNumber);
+        int[] repeatedNumber = new int[n];
+        Arrays.fill(repeatedNumber, k);
+        return repeatedNumber;
     }
 
-    public int findRemainingLength(int A, int B) {
-        if (A <= 0 || B <= 0) {
-            throw new IllegalArgumentException("A and B must be positive numbers.");
+    public int findRemainingLength(int a, int b) {
+        if (a <= 0 || b <= 0) {
+            throw new IllegalArgumentException("a and b must be positive numbers.");
         }
 
-        while (A >= B) {
-            A -= B;
+        while (a >= b) {
+            a -= b;
         }
 
-        //return A % B;
-        return A;
+        return a;
     }
 
     public int[] findMinMax(int[] numbers) {
@@ -68,15 +68,15 @@ public class Variant1 {
         return new int[]{min, max};
     }
 
-    public int[] generateOddNumbers(int N) {
-        if (N <= 0) {
-            throw new IllegalArgumentException("N must be greater than zero");
+    public int[] generateOddNumbers(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be greater than zero");
         }
 
-        int[] oddNumbersArray = new int[N];
+        int[] oddNumbersArray = new int[n];
         int oddNumber = 1;
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
             oddNumbersArray[i] = oddNumber;
             oddNumber += 2;
         }
@@ -85,10 +85,10 @@ public class Variant1 {
     }
 
 
-    public int[][] createMatrix(int M, int N) {
-        int[][] matrix = new int[M][N];
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
+    public int[][] createMatrix(int m, int n) {
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 matrix[i][j] = 10 * (i + 1);
             }
         }
