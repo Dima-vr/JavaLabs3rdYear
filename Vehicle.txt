@@ -1,0 +1,3 @@
+engineSize,mark,model,type,wheels
+1.6,Opel,Combo,carClass,4
+2.0,Е koda,Octavia,carClass,4
