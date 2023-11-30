@@ -1,23 +1,26 @@
 package org.example.lab3;
 
+import java.time.LocalDate;
 import java.util.Objects;
-
 
 public class Car extends Vehicle implements Comparable<Car> {
     private int wheels;
     private double engineSize;
+    private LocalDate dateOfRelease;
 
     public Car(CarBuilder cb) {
         super(cb);
         this.wheels = cb.wheels;
         this.engineSize = cb.engineSize;
         this.type = "carClass";
+        this.dateOfRelease = cb.dateOfRelease;
     }
 
-    public Car(String mark, String model, String type, int wheels, double engineSize) {
-        super(mark, model, type);
+    public Car(String mark, String model, String type, LocalDate dateOfRelease, int wheels, double engineSize) {
+        super(mark, model, type, dateOfRelease);
         this.wheels = wheels;
         this.engineSize = engineSize;
+        this.dateOfRelease = dateOfRelease;
     }
 
     public Car() {
@@ -31,9 +34,12 @@ public class Car extends Vehicle implements Comparable<Car> {
         return engineSize;
     }
 
+    public LocalDate getDateOfRelease() {
+        return dateOfRelease;
+    }
+
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (!(o instanceof Car)) return false;
         if (!super.equals(o)) return false;
@@ -53,6 +59,7 @@ public class Car extends Vehicle implements Comparable<Car> {
                 ", engineSize=" + engineSize +
                 ", mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
+                ", dateOfRelease=" + dateOfRelease +
                 '}';
     }
 
@@ -64,6 +71,7 @@ public class Car extends Vehicle implements Comparable<Car> {
     public static class CarBuilder extends VehicleBuilder {
         public int wheels;
         public double engineSize;
+        public LocalDate dateOfRelease;
 
         public CarBuilder setWheels(int wheels) {
             this.wheels = wheels;
@@ -75,8 +83,13 @@ public class Car extends Vehicle implements Comparable<Car> {
             return this;
         }
 
+        public CarBuilder setDateOfRelease(LocalDate dateOfRelease) {
+            this.dateOfRelease = dateOfRelease;
+            return this;
+        }
+
         @Override
-        public Vehicle build() {
+        public Car build() {
             return new Car(this);
         }
     }

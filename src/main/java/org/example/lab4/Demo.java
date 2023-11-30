@@ -1,33 +1,40 @@
 package org.example.lab4;
 
-import java.io.IOException;
+import java.time.LocalDate;
 
 public class Demo {
-    public static void main(String[] args) throws IOException {
-        Car.CarBuilder cb1 = new Car.CarBuilder();
-        Car.CarBuilder cb2 = new Car.CarBuilder();
-        Train.TrainBuilder tb = new Train.TrainBuilder();
-        cb1.setMark("Opel");
-        cb1.setModel("Combo");
-        cb1.setEngineSize(1.6);
-        cb1.setWheels(4);
+    public static void main(String[] args) {
+        try {
+            Car car = (Car) new Car.CarBuilder()
+                    .setEngineSize(1)
+                    .setWheels(4)
+                    .setDateOfRelease(LocalDate.of(2004, 5, 6))
+                    .setMark("Mazda")
+                    .setModel("rx7")
+                    .build();
 
-        tb.setMark("RailStar");
-        tb.setModel("500");
-        tb.setEngineSize(10);
-        tb.setCountWagons(12);
+            Train train = (Train) new Train.TrainBuilder()
+                    .setCountWagons(12)
+                    .setEngineSize(10)
+                    .setMark("RailStar")
+                    .setModel("500")
+                    .setDateOfRelease(LocalDate.of(2004, 5, 6))
+                    .build();
 
-        cb2.setMark("Škoda");
-        cb2.setModel("Octavia");
-        cb2.setEngineSize(2.0);
-        cb2.setWheels(4);
+            Car car2 = (Car) new Car.CarBuilder()
+                    .setWheels(4)
+                    .setEngineSize(2.0)
+                    .setMark("Škoda")
+                    .setModel("Octavia")
+                    .setDateOfRelease(LocalDate.of(2004, 5, 6))
+                    .build();
 
-        Train train = (Train) tb.build();
-        Car car1 = (Car) cb1.build();
-        Car car2 = (Car) cb2.build();
 
-        System.out.println(car1);
-        System.out.println(car2);
-        System.out.println(train);
+            System.out.println(car);
+            System.out.println(train);
+            System.out.println(car2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
     }
 }

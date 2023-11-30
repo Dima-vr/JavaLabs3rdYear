@@ -92,7 +92,7 @@ public class Train extends Vehicle {
         }
 
         @Override
-        public Vehicle build() {
+        public Train build() {
             return new Train(this);
         }
     }

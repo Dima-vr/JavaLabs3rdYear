@@ -1,3 +1,13 @@
-engineSize,mark,model,type,wheels
-1.6,Opel,Combo,carClass,4
-2.0,Е koda,Octavia,carClass,4
+[ {
+  "mark" : "Opel",
+  "model" : "Combo",
+  "type" : "carClass",
+  "wheels" : 4,
+  "engineSize" : 1.6
+}, {
+  "mark" : "Е koda",
+  "model" : "Octavia",
+  "type" : "carClass",
+  "wheels" : 4,
+  "engineSize" : 2.0
+} ]

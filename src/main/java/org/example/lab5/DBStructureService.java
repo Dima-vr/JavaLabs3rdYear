@@ -43,6 +43,9 @@ public class DBStructureService {
                             id INT NOT NULL AUTO_INCREMENT,
                             wheels INT NOT NULL,
                             engineSize DOUBLE NOT NULL,
+                            mark varchar(50),
+                            model varchar(50),
+                            dateOfRelease date,
                             PRIMARY KEY (id)
                         );
                     """,
@@ -51,6 +54,9 @@ public class DBStructureService {
                             id INT NOT NULL AUTO_INCREMENT,
                             engineSize DOUBLE NOT NULL,
                             countWagons INT NOT NULL,
+                            mark varchar(50),
+                            model varchar(50),
+                            dateOfRelease date,
                             PRIMARY KEY (id)
                         );
                     """

@@ -2,14 +2,13 @@ package org.example.lab3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class VehicleService {
+public class VehicleServiceWithoutStreamApi implements VehicleServiceIntarface {
     private List<Vehicle> list;
     private List<Car> carList;
     private List<Train> trainList;
 
-    public VehicleService(List<Vehicle> list) {
+    public VehicleServiceWithoutStreamApi(List<Vehicle> list) {
         this.list = list;
         this.carList = getCars();
         this.trainList = getTrains();
@@ -51,7 +50,6 @@ public class VehicleService {
         return res;
     }
 
-
     public List<Vehicle> getListByType(String type) {
         List<Vehicle> res = new ArrayList<>();
         for (Vehicle v : getVehicleList()) {
@@ -73,14 +71,32 @@ public class VehicleService {
     }
 
     public List<Vehicle> getListByMark(String mark) {
-        return getVehicleList().stream().filter(vehicle -> mark == (vehicle.getMark())).collect(Collectors.toList());
+        List<Vehicle> result = new ArrayList<>();
+        for (Vehicle vehicle : getVehicleList()) {
+            if (mark.equals(vehicle.getMark())) {
+                result.add(vehicle);
+            }
+        }
+        return result;
     }
 
     public List<Car> getListCarsByEngineSize(double engineSize) {
-        return getCarList().stream().filter(car -> engineSize == car.getEngineSize()).collect(Collectors.toList());
+        List<Car> result = new ArrayList<>();
+        for (Car car : getCarList()) {
+            if (engineSize == car.getEngineSize()) {
+                result.add(car);
+            }
+        }
+        return result;
     }
 
     public List<Train> getListTrainsByEngineSize(double engineSize) {
-        return getTrainList().stream().filter(train -> engineSize == train.getEngineSize()).collect(Collectors.toList());
+        List<Train> result = new ArrayList<>();
+        for (Train train : getTrainList()) {
+            if (engineSize == train.getEngineSize()) {
+                result.add(train);
+            }
+        }
+        return result;
     }
 }

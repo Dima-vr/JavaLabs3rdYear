@@ -99,7 +99,7 @@ public class Car extends Vehicle {
         }
 
         @Override
-        public Vehicle build() {
+        public Car build() {
             return new Car(this);
         }
     }

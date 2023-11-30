@@ -14,8 +14,8 @@ public class Demo {
         tb.setEngineSize(10);
         tb.setCountWagons(12);
 
-        Car car = (Car) cb.build();
-        Train train = (Train) tb.build();
+        Car car = cb.build();
+        Train train = tb.build();
         System.out.println(car);
         System.out.println(train);
     }

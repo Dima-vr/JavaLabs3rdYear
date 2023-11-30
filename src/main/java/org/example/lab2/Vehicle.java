@@ -19,7 +19,7 @@ abstract public class Vehicle {
     public Vehicle(VehicleBuilder vb) {
         this.mark = vb.mark;
         this.model = vb.model;
-        this.type = "vehicleClass";
+        this.type = this.getClass().getSimpleName().toLowerCase() + "Class";
     }
 
     public Vehicle(String mark, String model, String type) {

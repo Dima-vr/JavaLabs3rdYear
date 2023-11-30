@@ -5,6 +5,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,15 +13,15 @@ public class Train extends Vehicle implements Comparable<Train> {
     private double engineSize;
     private int countWagons;
 
-    public Train(TrainBuilder tb) {
+    private Train(TrainBuilder tb) {
         super(tb);
         this.engineSize = tb.engineSize;
         this.countWagons = tb.countWagons;
         this.type = "trainClass";
     }
 
-    public Train(String mark, String model, String type, int engineSize, int countWagons) {
-        super(mark, model, type);
+    public Train(String mark, String model, String type, LocalDate dateOfRelease, double engineSize, int countWagons) {
+        super(mark, model, type, dateOfRelease);
         this.engineSize = engineSize;
         this.countWagons = countWagons;
     }
@@ -42,7 +43,7 @@ public class Train extends Vehicle implements Comparable<Train> {
         if (!(o instanceof Train)) return false;
         if (!super.equals(o)) return false;
         Train train = (Train) o;
-        return engineSize == train.engineSize && countWagons == train.countWagons;
+        return Double.compare(train.engineSize, engineSize) == 0 && countWagons == train.countWagons;
     }
 
     @Override
@@ -57,13 +58,15 @@ public class Train extends Vehicle implements Comparable<Train> {
                 ", countWagons=" + countWagons +
                 ", mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
+                ", dateOfRelease=" + dateOfRelease +
                 '}';
     }
 
     @Override
     public int compareTo(Train o) {
-        return (int) (this.engineSize - o.engineSize);
+        return this.countWagons - o.countWagons;
     }
+
 
     public static class TrainBuilder extends VehicleBuilder {
         @NotNull
@@ -84,7 +87,7 @@ public class Train extends Vehicle implements Comparable<Train> {
         }
 
         @Override
-        public Vehicle build() {
+        public Train build() {
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
             Set<ConstraintViolation<TrainBuilder>> constraintViolations = validator.validate(this);
             StringBuilder exceptions = new StringBuilder("\n");

@@ -1,5 +1,6 @@
 package org.example.lab3;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Train extends Vehicle implements Comparable<Train> {
@@ -13,8 +14,8 @@ public class Train extends Vehicle implements Comparable<Train> {
         this.type = "trainClass";
     }
 
-    public Train(String mark, String model, String type, int engineSize, int countWagons) {
-        super(mark, model, type);
+    public Train(String mark, String model, String type, LocalDate dateOfRelease, double engineSize, int countWagons) {
+        super(mark, model, type, dateOfRelease);
         this.engineSize = engineSize;
         this.countWagons = countWagons;
     }
@@ -36,7 +37,7 @@ public class Train extends Vehicle implements Comparable<Train> {
         if (!(o instanceof Train)) return false;
         if (!super.equals(o)) return false;
         Train train = (Train) o;
-        return engineSize == train.engineSize && countWagons == train.countWagons;
+        return Double.compare(train.engineSize, engineSize) == 0 && countWagons == train.countWagons;
     }
 
     @Override
@@ -51,6 +52,7 @@ public class Train extends Vehicle implements Comparable<Train> {
                 ", countWagons=" + countWagons +
                 ", mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
+                ", dateOfRelease=" + dateOfRelease +
                 '}';
     }
 
@@ -74,7 +76,7 @@ public class Train extends Vehicle implements Comparable<Train> {
         }
 
         @Override
-        public Vehicle build() {
+        public Train build() {
             return new Train(this);
         }
     }
