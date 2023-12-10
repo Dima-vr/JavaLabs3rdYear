@@ -1,13 +1,2 @@
-[ {
-  "mark" : "Opel",
-  "model" : "Combo",
-  "type" : "carClass",
-  "wheels" : 4,
-  "engineSize" : 1.6
-}, {
-  "mark" : "Е koda",
-  "model" : "Octavia",
-  "type" : "carClass",
-  "wheels" : 4,
-  "engineSize" : 2.0
-} ]
+Type: carClass, Mark: Opel, Model: Combo, Wheels: 4, EngineSize: 1.6
+Type: carClass, Mark: Skoda, Model: Octavia, Wheels: 4, EngineSize: 2.0

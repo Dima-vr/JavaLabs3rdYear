@@ -9,8 +9,10 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,16 +32,49 @@ public class SerializeToTxt implements Serialize<Car> {
 
     @Override
     public void writeToFile(List<Car> cars, String fileName) throws IOException {
-        String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cars);
-        List<String> lines = Arrays.asList(jsonString.split("\n"));
-
-        Files.write(Paths.get(fileName), lines);
+        StringBuilder stringBuilder = new StringBuilder();
+        int totalCarsLength = cars.size();
+        for (int i = 0; i < totalCarsLength; i++) {
+            Car car = cars.get(i);
+            String carString = String.format(
+                    "Type: %s, Mark: %s, Model: %s, Wheels: %d, EngineSize: %s",
+                    car.getType(), car.getMark(), car.getModel(),
+                    car.getWheels(), car.getEngineSize()
+            );
+            if (i < totalCarsLength - 1) {
+                carString += "\n";
+            }
+            stringBuilder.append(carString);
+        }
+        Files.write(Paths.get(fileName), stringBuilder.toString().getBytes());
     }
 
     @Override
     public List<Car> readFromFile(String fileName) throws IOException {
-        String content = new String(Files.readAllBytes(Paths.get(fileName)));
-        Car[] carsArray = mapper.readValue(content, Car[].class);
-        return Arrays.asList(carsArray);
+        List<Car> cars = new ArrayList<>();
+
+        List<String> lines = Files.readAllLines(Path.of(fileName));
+
+        for (String line : lines) {
+            String[] parts = line.split(", ");
+            if (parts.length >= 5) {
+                String type = getValue(parts[0]);
+                String mark = getValue(parts[1]);
+                String model = getValue(parts[2]);
+                int wheels = Integer.parseInt(getValue(parts[3]));
+                double engineSize = Double.parseDouble(getValue(parts[4]));
+
+                Car car = new Car(mark, model, type, wheels, engineSize);
+                cars.add(car);
+            }
+        }
+
+        return cars;
     }
+
+    private String getValue(String part) {
+        String[] keyValue = part.split(": ");
+        return keyValue[1].trim();
+    }
+
 }

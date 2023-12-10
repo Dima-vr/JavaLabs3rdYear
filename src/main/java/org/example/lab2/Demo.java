@@ -19,7 +19,7 @@ public class Demo {
         tb.setEngineSize(10);
         tb.setCountWagons(12);
 
-        cb2.setMark("Škoda");
+        cb2.setMark("Skoda");
         cb2.setModel("Octavia");
         cb2.setEngineSize(2.0);
         cb2.setWheels(4);
